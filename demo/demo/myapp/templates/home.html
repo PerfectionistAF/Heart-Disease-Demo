@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+{% if user.first_name %}
+Welcome, {{ user.first_name }}!
+{% elif user.last_name %}
+Welcome, {{ user.last_name }}!
+{% else %}
+Welcome, {{ user.username }}!
+{% endif %}
+This is a demo deployment of Myocardial Infarction (MI) Prediction Model.
+<p>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<p> You can choose to <a href=""> view the architecture </a>of the model,
+    <a href="submission">examine a submission </a> by providing its reference number, or <a href="">contact the
+        creators.</a>
+</p>
+
+
+{% for group in request.user.groups.all %}
+{% if group.name == 'Doctor' %}
+<p>You are logged in as a Doctor. Display specific content for Doctors here.</p>
+
+</p>
+<h1>Instructions</h1>
+<p>
+    <u1></u1>
+    Here, you can choose to:
+    <li> Enter your own data in the form. </li>
+    <li> Display a sample prediction from our test dataset. </li>
+    </u1>
+</p>
+
+
+
+<button class="btn-primary">View Sample Prediction</button>
+</br></br></br>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ model_form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+
+
+
+{% elif group.name == 'Patient' %}
+<!-- <p>You are logged in as a Patient. Display specific content for Patients here.</p> -->
+
+
+{% endif %}
+
+{% endfor %}
+
+
+
+
+
+
+
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">Log In</a> |
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock %}
