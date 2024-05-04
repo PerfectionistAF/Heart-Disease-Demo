@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+<h1> Predicted Results </h1>
+
+{% if new_file_added %}
+<p>Form submitted successfully! (Reference number = {{ reference_number }} ) </p>
+{% endif %}
+<table>
+    <tr>
+        <th>Reference Number</th>
+        <th>Age (years)</th>
+        <th>Sex</th>
+        <th>Chest Pain Type</th>
+        <th>Resting Blood Pressure (mm Hg) on admission to the hospital</th>
+        <th>Total Serum Cholesterol (mg/dl)</th>
+        <th>Fasting Blood Sugar &gt; 120 mg/dl?</th>
+        <th>Resting Electrocardiographic Results</th>
+        <th>Maximum Heart Rate Achieved</th>
+        <th>Exercise Induced Angina?</th>
+        <th>ST Depression Induced by Exercise Relative to Rest</th>
+        <th>Slope of the Peak Exercise ST Segment</th>
+        <th>Number of Major Vessels (0-3) Colored by Fluoroscopy</th>
+        <th>Thalassemia</th>
+        <th>Electrocardiogram (ECG)</th>
+        <th>Echocardiogram</th>
+        <th>Diagnosis</th>
+        <th>Prognosis</th>
+
+    </tr>
+    {% for item in query_results %}
+    <tr>
+        <td>{{ item.reference_number }}</td>
+        <td>{{ item.age }}</td>
+        <td>{{ item.sex }}</td>
+        <td>{{ item.cp }}</td>
+        <td>{{ item.trestbps }}</td>
+        <td>{{ item.chol }}</td>
+        <td>{{ item.fbs }}</td>
+        <td>{{ item.restecg }}</td>
+        <td>{{ item.thalach }}</td>
+        <td>{{ item.exang }}</td>
+        <td>{{ item.oldpeak }}</td>
+        <td>{{ item.slope }}</td>
+        <td>{{ item.ca }}</td>
+        <td>{{ item.thal }}</td>
+        <td>{{ item.image }}</td>
+        <td>{{ item.video }}</td>
+        <td>{{ item.diagnosis }}</td>
+        <td>{{ item.prognosis }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
